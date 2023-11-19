@@ -1,0 +1,16 @@
+Resources:
+  CoreApiGatewayV2:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: CoreApi
+      ProtocolType: HTTP
+      Description: API Gateway to all services
+
+Outputs:
+  CoreApiGatewayV2Id:
+    Value:
+      Fn::GetAtt:
+        - CoreApiGatewayV2
+        - ApiId
+    Export:
+      Name: ${self:service}-CoreApiGatewayV2-ApiId
