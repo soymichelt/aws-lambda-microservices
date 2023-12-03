@@ -6,6 +6,8 @@ Resources:
   EventBusSnsHelloWorldTopicPolicy:
     Type: AWS::SNS::TopicPolicy
     Properties:
+      Topics:
+        - !Ref EventBusSnsHelloWorldTopic
       PolicyDocument:
         Id: EventBusSnsHelloWorldTopicPolicyId
         Version: '2012-10-17'
@@ -25,8 +27,6 @@ Resources:
             - SNS:Publish
             - SNS:Receive
           Resource: !Ref EventBusSnsHelloWorldTopic
-      Topics:
-        - !Ref EventBusSnsHelloWorldTopic
 
 Outputs:
   EventBusSnsHelloWorldTopicArn:
