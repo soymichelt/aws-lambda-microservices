@@ -65,4 +65,5 @@ functions:
 resources:
   - ${file(cloud-config/iamRoles.yml)}
   - ${file(cloud-config/eventBusSns.yml)}
+  - ${file(cloud-config/eventBusSqs.yml)}
   - ${file(cloud-config/s3.yml)}
