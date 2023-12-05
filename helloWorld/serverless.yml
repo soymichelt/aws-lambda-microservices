@@ -63,6 +63,7 @@ functions:
   - ${file(src/services/ping/infrastructure/functions/functions.yml)}
 
 resources:
+  - ${file(cloud-config/iamPolicies.yml)}
   - ${file(cloud-config/iamRoles.yml)}
   - ${file(cloud-config/eventBusSns.yml)}
   - ${file(cloud-config/eventBusSqs.yml)}
