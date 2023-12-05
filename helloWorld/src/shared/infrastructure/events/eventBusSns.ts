@@ -12,10 +12,10 @@ type EventBusSnsProps = {
 };
 
 export class EventBusSns implements EventBus {
-  serviceName: string;
-  version: string;
-  awsRegion: string;
-  topicArn: string;
+  private serviceName: string;
+  private version: string;
+  private awsRegion: string;
+  private topicArn: string;
 
   constructor(props: EventBusSnsProps) {
     this.validateEventBus(props);
@@ -47,7 +47,7 @@ export class EventBusSns implements EventBus {
       },
     };
 
-    const client = new SNSClient();
+    const client = new SNSClient({ region: this.awsRegion });
     const command = new PublishCommand(messageParams);
     await client.send(command);
   }
