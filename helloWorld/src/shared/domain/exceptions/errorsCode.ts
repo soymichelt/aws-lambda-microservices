@@ -3,4 +3,5 @@ export const ERROR_CODES = {
   'InvalidTypeException': 'SHA-1001',
   'EnumValueIsInvalidException': 'SHA-1002',
   'ArgRequiredException': 'SHA-1003',
+  'ArgInvalidException': 'SHA-1004',
 };
