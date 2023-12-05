@@ -7,6 +7,7 @@
     "test": "jest --maxWorkers=50%",
     "build": "serverless package --verbose --stage %STAGE% --package sls-output",
     "deploy": "serverless deploy --verbose --stage %STAGE% --package sls-output && serverless info --verbose --stage %STAGE%",
+    "removeService": "serverless remove",
     "info": "serverless info --verbose --stage %STAGE%",
     "health": "serverless doctor"
   },
