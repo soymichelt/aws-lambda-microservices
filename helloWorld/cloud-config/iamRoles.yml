@@ -38,3 +38,8 @@ Resources:
                       - ''
                       - - Fn::GetAtt: [S3HelloWorldStorage, Arn]
                         - '/*'
+              - Effect: 'Allow'
+                Action:
+                  - sqs:SendMessage
+                Resource:
+                  - Fn::GetAtt: [EventBusSqsHelloWorldQueue, Arn]
