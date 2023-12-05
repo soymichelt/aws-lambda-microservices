@@ -7,7 +7,8 @@
     "test": "jest --maxWorkers=50%",
     "build": "serverless package --verbose --stage %STAGE% --package sls-output",
     "deploy": "serverless deploy --verbose --stage %STAGE% --package sls-output && serverless info --verbose --stage %STAGE%",
-    "info": "serverless info --verbose --stage %STAGE%"
+    "info": "serverless info --verbose --stage %STAGE%",
+    "health": "serverless doctor"
   },
   "author": "SoymichelDev <mtraatabladaa94@gmail.com>",
   "license": "UNLICENSED",
