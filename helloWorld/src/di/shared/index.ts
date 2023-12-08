@@ -7,6 +7,7 @@ import { SnsRequestParserController } from '@shared/infrastructure/controllers/s
 import { EventBusSns } from '@shared/infrastructure/events/eventBusSns';
 
 import { container } from 'tsyringe';
+import { MongoClientFactory } from '@shared/infrastructure/persistence/mongodb/mongoClientFactory';
 
 container
   .register<RequestParserController>('RequestParserController', HttpRequestParserController)
@@ -18,6 +19,12 @@ container
       version: process.env.EVENT_BUS_VERSION,
       awsRegion: process.env.REGION,
       topicArn: process.env.SNS_TOPIC_ARN,
+    }),
+  })
+  .register<MongoClientFactory>('MongoClientFactory', {
+    useValue: new MongoClientFactory({
+      uri: process.env.MONGO_DATABASE_URI,
+      databaseName: process.env.MONGO_DATABASE_NAME,
     }),
   });
 
