@@ -54,7 +54,12 @@ export class EventBusSns implements EventBus {
 
   private validateEventBus(props: EventBusSnsProps): void {
     if (!props.serviceName || !props.version || !props.awsRegion || !props.topicArn) {
-      throw new ArgRequiredException(Object.entries(props).filter(([_, value]) => !value).map(([key]) => key));
+      throw new ArgRequiredException(
+        Object
+          .entries(props)
+          .filter(([_, value]) => !value)
+          .map(([key]) => key)
+      );
     }
   }
 }
