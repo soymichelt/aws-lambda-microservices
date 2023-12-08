@@ -82,6 +82,14 @@ skipComments: true }],
         args: 'after-used',
         argsIgnorePattern: '^_'
       }
-    ]
+    ],
+    "@typescript-eslint/quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true,
+      },
+    ],
   }
 }
