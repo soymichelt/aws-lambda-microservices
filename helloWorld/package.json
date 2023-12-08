@@ -25,6 +25,7 @@
     "@types/aws-lambda": "^8.10.125",
     "@types/eslint": "^8.44.6",
     "@types/jest": "^29.5.10",
+    "@types/mongodb": "^4.0.7",
     "@types/node": "^20.8.9",
     "@types/reflect-metadata": "^0.1.0",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
