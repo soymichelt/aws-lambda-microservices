@@ -1,6 +1,7 @@
 import * as Crypto from 'crypto';
 import { EncriptionService } from '@shared/domain/services/encriptionService';
 import { injectable } from 'tsyringe';
+import { ArgRequiredException } from '@shared/domain/exceptions/argRequiredException';
 
 type CryptoEncriptionServiceProps = {
   secretKey: string;
@@ -17,6 +18,8 @@ export class CryptoEncriptionService implements EncriptionService {
   private readonly method: string;
 
   constructor(props: CryptoEncriptionServiceProps) {
+    this.validateEncriptionService(props);
+
     this.secretKey = props.secretKey;
     this.secretIV = props.secretIV;
     this.method = props.method || CryptoEncriptionService.METHOD_DEFAULT;
@@ -58,6 +61,17 @@ export class CryptoEncriptionService implements EncriptionService {
       + decipherResult.final('utf-8');
 
     return deciphertext;
+  }
+
+  private validateEncriptionService(props: CryptoEncriptionServiceProps): void {
+    if (!props.secretKey || !props.secretIV) {
+      throw new ArgRequiredException(
+        Object
+          .entries(props)
+          .filter(([key, value]) => !value && key === 'method')
+          .map(([key]) => key)
+      );
+    }
   }
 
   private createKey(): string {
