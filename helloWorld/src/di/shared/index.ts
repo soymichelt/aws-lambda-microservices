@@ -8,6 +8,10 @@ import { EventBusSns } from '@shared/infrastructure/events/eventBusSns';
 
 import { container } from 'tsyringe';
 import { MongoClientFactory } from '@shared/infrastructure/persistence/mongodb/mongoClientFactory';
+import { EncriptionService } from '@shared/domain/services/encriptionService';
+import { CryptoEncriptionService } from '@shared/infrastructure/services/encription/cryptoEncriptionService';
+import { KeyStoreService } from '@shared/domain/services/keyStoreService';
+import { SsmKeyStoreService } from '@shared/infrastructure/services/keyStore/ssmKeyStoreService';
 
 container
   .register<RequestParserController>('RequestParserController', HttpRequestParserController)
@@ -25,6 +29,17 @@ container
     useValue: new MongoClientFactory({
       uri: process.env.MONGO_DATABASE_URI,
       databaseName: process.env.MONGO_DATABASE_NAME,
+    }),
+  })
+  .register<EncriptionService>('EncriptionService', {
+    useValue: new CryptoEncriptionService({
+      secretKey: process.env.CRYPTO_SECRET_KEY,
+      secretIV: process.env.CRYPTO_SECRET_IV,
+    })
+  })
+  .register<KeyStoreService>('KeyStoreService', {
+    useValue: new SsmKeyStoreService({
+      awsRegion: process.env.REGION,
     }),
   });
 
