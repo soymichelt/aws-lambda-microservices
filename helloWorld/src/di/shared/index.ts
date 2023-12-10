@@ -12,11 +12,23 @@ import { EncriptionService } from '@shared/domain/services/encriptionService';
 import { CryptoEncriptionService } from '@shared/infrastructure/services/encription/cryptoEncriptionService';
 import { KeyStoreService } from '@shared/domain/services/keyStoreService';
 import { SsmKeyStoreService } from '@shared/infrastructure/services/keyStore/ssmKeyStoreService';
+import { Logger } from '@shared/domain/loggers/logger';
+import { WinstonLogger } from '@shared/infrastructure/loggers/winston/winstonLogger';
 
 container
   .register<RequestParserController>('RequestParserController', HttpRequestParserController)
   .register<RequestParserController>('RequestParserController', SnsRequestParserController)
   .register<ManagerRequestParsersController>('ManagerRequestParsersController', ManagerRequestParsersController)
+  .register<Logger>('Logger', {
+    useValue: new WinstonLogger({
+      app: process.env.APP,
+      service: process.env.SERVICE,
+      package: process.env.PACKAGE,
+      awsRegion: process.env.REGION,
+      stage: process.env.STAGE,
+      version: process.env.VERSION,
+    }),
+  })
   .register<EventBus>('EventBus', {
     useValue: new EventBusSns({
       serviceName: `${process.env.APP}.${process.env.SERVICE}`,
