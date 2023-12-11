@@ -6,11 +6,16 @@ Resources:
       ProtocolType: HTTP
       Description: API Gateway to all services
 
+  CoreApiGatewayV2StageV1:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref CoreApiGatewayV2
+      StageName: v1
+      AutoDeploy: true
+
 Outputs:
   CoreApiGatewayV2Id:
     Value:
-      Fn::GetAtt:
-        - CoreApiGatewayV2
-        - ApiId
+      Fn::GetAtt: [CoreApiGatewayV2, ApiId]
     Export:
       Name: ${self:service}-CoreApiGatewayV2-ApiId
