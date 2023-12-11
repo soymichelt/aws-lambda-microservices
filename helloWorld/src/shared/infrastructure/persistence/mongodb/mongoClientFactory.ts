@@ -1,6 +1,6 @@
 import { ArgRequiredException } from '@shared/domain/exceptions/argRequiredException';
 import { MongoClient, Db } from 'mongodb';
-import { injectable, singleton } from 'tsyringe';
+import { injectable } from 'tsyringe';
 
 type MongoClientFactoryProps = {
   uri: string;
@@ -8,8 +8,8 @@ type MongoClientFactoryProps = {
 };
 
 @injectable()
-@singleton()
 export class MongoClientFactory {
+  private static instance: MongoClientFactory;
   private static db: Db;
 
   private uri: string;
@@ -20,6 +20,15 @@ export class MongoClientFactory {
 
     this.uri = props.uri;
     this.databaseName = props.databaseName;
+  }
+
+  public static build(props: MongoClientFactoryProps): MongoClientFactory {
+    if (this.instance) {
+      return this.instance;
+    }
+
+    this.instance = new MongoClientFactory(props);
+    return this.instance;
   }
 
   public async connect(): Promise<Db> {
