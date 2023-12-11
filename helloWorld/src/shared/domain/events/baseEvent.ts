@@ -33,8 +33,8 @@ export abstract class BaseEvent {
   }
 
   private validateEvent(props: BaseEventProps): void {
-    const { aggregateId, eventId, eventType } = props
-    if (!aggregateId || !eventId || !eventType) {
+    const { aggregateId, eventType } = props
+    if (!aggregateId || !eventType) {
       throw new ArgRequiredException(
         Object
           .entries(props)
