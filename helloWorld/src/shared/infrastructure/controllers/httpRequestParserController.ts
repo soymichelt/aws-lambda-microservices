@@ -10,9 +10,9 @@ export class HttpRequestParserController implements RequestParserController {
 
   public parseRequest<T>(event: APIGatewayProxyEventV2, _context: Context): T {
     return {
-      body: JSON.parse(event.body || '{}'),
-      queryParams: { ...(event.queryStringParameters || {}) },
-      pathParams: { ...(event.pathParameters || {}) },
+      ...JSON.parse(event.body || '{}'),
+      ...(event.queryStringParameters || {}),
+      ...(event.pathParameters || {}),
     } as T;
   }
 }
