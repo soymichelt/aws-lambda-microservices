@@ -26,6 +26,6 @@ export class Id {
   }
 
   public toString(): string {
-    return this.value.toString();
+    return this.value?.toString();
   }
 }
