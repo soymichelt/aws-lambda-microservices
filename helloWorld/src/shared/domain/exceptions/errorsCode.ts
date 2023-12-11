@@ -4,4 +4,6 @@ export const ERROR_CODES = {
   'EnumValueIsInvalidException': 'SHA-1002',
   'ArgRequiredException': 'SHA-1003',
   'ArgInvalidException': 'SHA-1004',
+  'EncryptException': 'SHA-1005',
+  'DecryptUnknownException': 'SHA-1006',
 };
