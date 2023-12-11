@@ -18,7 +18,7 @@ provider:
   name: aws
   deploymentMethod: direct
   runtime: nodejs18.x
-  timeout: 30
+  timeout: 29
   region: ${self:custom.constants.REGION}
   stage: ${opt:stage}
   endpointType: REGIONAL
@@ -61,6 +61,7 @@ provider:
 
 functions:
   - ${file(src/services/ping/infrastructure/functions/functions.yml)}
+  - ${file(src/services/users/infrastructure/functions/functions.yml)}
 
 resources:
   - ${file(cloud-config/iamPolicies.yml)}
