@@ -18,7 +18,7 @@ provider:
   name: aws
   deploymentMethod: direct
   runtime: nodejs18.x
-  timeout: 30
+  timeout: 29
   region: ${self:custom.constants.REGION}
   stage: ${opt:stage}
   endpointType: REGIONAL
@@ -55,9 +55,10 @@ provider:
     #     - AWS::DynamoDB::Table
     #     - AWS::S3::Bucket
   httpApi:
+    id:
+      Fn::ImportValue: '${self:service}-CoreApiGatewayV2-ApiId'
     name: CoreApi
     metrics: true
-    cors: true
 
 functions:
   - ${file(src/services/ping/infrastructure/functions/functions.yml)}
