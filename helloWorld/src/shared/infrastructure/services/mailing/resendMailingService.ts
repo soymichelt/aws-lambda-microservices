@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import { MailingService, SendEmailProps } from '@shared/domain/services/mailingService';
+import { ArgRequiredException } from '@shared/domain/exceptions/argRequiredException';
 
 type ResendMailingServiceProps = {
   apiKey: string;
@@ -11,7 +12,10 @@ export class ResendMailingService implements MailingService {
   private readonly emailFrom: string;
 
   constructor(props: ResendMailingServiceProps) {
+    this.validateSmsService(props);
+
     this.apiKey = props.apiKey;
+    this.emailFrom = props.emailFrom;
   }
 
   public async send(props: SendEmailProps): Promise<void> {
@@ -23,5 +27,16 @@ export class ResendMailingService implements MailingService {
       subject: props.subject,
       html: props.message,
     });
+  }
+
+  private validateSmsService(props: ResendMailingServiceProps): void {
+    if (!props.apiKey || !props.emailFrom) {
+      throw new ArgRequiredException(
+        Object
+          .entries(props)
+          .filter(([_, value]) => !value)
+          .map(([key]) => key)
+      );
+    }
   }
 }
