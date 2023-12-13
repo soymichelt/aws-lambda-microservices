@@ -5,7 +5,8 @@ import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
 import { DateValueObject } from '@shared/domain/valueObjects/dateValueObject';
 import { Id } from '@shared/domain/valueObjects/id';
 import { UserCreatedEvent } from '@services/users/domain/events/userCreatedEvent';
-import { UserPhone } from './valueObjects/userPhone';
+import { UserPhone } from '@services/users/domain/valueObjects/userPhone';
+import { UserRemovedEvent } from '@services/users/domain/events/userRemovedEvent';
 
 type UserProps = {
   userId: Id;
@@ -71,6 +72,11 @@ export class User extends AggregateRoot {
       createdAt: DateValueObject.fromString(props.createdAt),
       updatedAt: DateValueObject.fromString(props.updatedAt),
     });
+  }
+
+  public remove(): void {
+    const event = UserRemovedEvent.build(this);
+    this.pushEvent(event);
   }
 
   public toPrimitives(): UserPrimitivesProps {
