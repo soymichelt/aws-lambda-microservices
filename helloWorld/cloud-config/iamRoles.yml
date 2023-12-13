@@ -43,3 +43,7 @@ Resources:
                   - sqs:SendMessage
                 Resource:
                   - Fn::GetAtt: [EventBusSqsHelloWorldQueue, Arn]
+              - Effect: Allow
+                Action:
+                  - ses:SendEmail
+                Resource: '*'
