@@ -1,5 +1,7 @@
 import { UserRepository } from '@services/users/domain/repositories/userRepository';
 import { User } from '@services/users/domain/user';
+import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
+import { UserName } from '@services/users/domain/valueObjects/userName';
 import { Id } from '@shared/domain/valueObjects/id';
 import { MongoRepository } from '@shared/infrastructure/persistence/mongodb/mongoRepository';
 import { injectable } from 'tsyringe';
@@ -23,6 +25,22 @@ export class MongoUserRepository extends MongoRepository<User> implements UserRe
   public async find(userId: Id): Promise<User> {
     const collection = await this.collection();
     const document = await collection.findOne({ _id: userId.value });
+    if (!document) return;
+
+    return this.mapToUser(document);
+  }
+
+  public async findByEmail(email: UserEmail): Promise<User> {
+    const collection = await this.collection();
+    const document = await collection.findOne({ email: email.value });
+    if (!document) return;
+
+    return this.mapToUser(document);
+  }
+
+  public async findByUsername(username: UserName): Promise<User> {
+    const collection = await this.collection();
+    const document = await collection.findOne({ username: username.value });
     if (!document) return;
 
     return this.mapToUser(document);
