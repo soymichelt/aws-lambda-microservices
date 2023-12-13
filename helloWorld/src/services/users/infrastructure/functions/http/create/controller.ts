@@ -13,7 +13,6 @@ export class CreateUserController extends BaseController<CreateUserRequest, User
   }
 
   public async run(request: CreateUserRequest): Promise<UserResponse> {
-    this.logger.info({ message: 'CreateUserRequest >>>> ', request })
     const result = await this.useCase.run(request);
 
     return result;
