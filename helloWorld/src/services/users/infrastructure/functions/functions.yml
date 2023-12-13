@@ -12,6 +12,21 @@ user-create:
         method: POST
         path: /helloWorld/users
 
+user-notify-registered:
+  role: IamHelloWorldLambdaAccessRole
+  handler: src/services/users/infrastructure/functions/sns/notifRegistered/handler.handler
+  environment:
+    MONGO_DATABASE_URI: ${ssm:/hello-world/databases/MONGO_URI}
+    MONGO_DATABASE_NAME: ${ssm:/hello-world/databases/MONGO_NAME}
+    SES_EMAIL_FROM: ${ssm:/hello-world/mailing/SES/SES_EMAIL_FROM}
+  events:
+    - sns:
+        arn: !Ref EventBusSnsHelloWorldTopic
+        topicName: ${self:custom.constants.HELLO_WORLD.SNS_TOPIC}
+        filterPolicy:
+          event_type:
+            - 'soymichel-dev.hello-world.v1.user.created'
+
 user-get-all:
   role: IamHelloWorldLambdaAccessRole
   handler: src/services/users/infrastructure/functions/http/getAll/handler.handler

@@ -15,7 +15,9 @@ import { SsmKeyStoreService } from '@shared/infrastructure/services/keyStore/ssm
 import { Logger } from '@shared/domain/loggers/logger';
 import { WinstonLogger } from '@shared/infrastructure/loggers/winston/winstonLogger';
 import { MailingService } from '@shared/domain/services/mailingService';
-import { ResendMailingService } from '@shared/infrastructure/services/mailing/resendMailingService';
+import { SmsService } from '@shared/domain/services/smsService';
+import { SnsSmsService } from '@shared/infrastructure/services/sms/SnsSmsService';
+import { SesMailingService } from '@shared/infrastructure/services/mailing/sesMailingService';
 
 container
   .register<RequestParserController>('RequestParserController', HttpRequestParserController)
@@ -69,12 +71,22 @@ if (process.env.CRYPTO_SECRET_KEY && process.env.CRYPTO_SECRET_IV) {
     });
 }
 
-if (process.env.RESEND_API_KEY && process.env.RESEND_EMAIL_FROM) {
+if (process.env.SES_EMAIL_FROM) {
   container
     .register<MailingService>('MailingService', {
-      useValue: new ResendMailingService({
-        apiKey: process.env.RESEND_API_KEY,
-        emailFrom: process.env.RESEND_EMAIL_FROM,
+      useValue: new SesMailingService({
+        awsRegion: process.env.REGION,
+        emailFrom: process.env.SES_EMAIL_FROM,
+      })
+    });
+}
+
+if (process.env.SMS_SENDER) {
+  container
+    .register<SmsService>('SmsService', {
+      useValue: new SnsSmsService({
+        awsRegion: process.env.REGION,
+        sender: process.env.SMS_SENDER,
       })
     });
 }

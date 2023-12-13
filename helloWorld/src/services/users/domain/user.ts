@@ -5,12 +5,14 @@ import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
 import { DateValueObject } from '@shared/domain/valueObjects/dateValueObject';
 import { Id } from '@shared/domain/valueObjects/id';
 import { UserCreatedEvent } from '@services/users/domain/events/userCreatedEvent';
+import { UserPhone } from './valueObjects/userPhone';
 
 type UserProps = {
   userId: Id;
   username: UserName;
   email: UserEmail;
   password: UserPassword;
+  phone?: UserPhone;
 
   createdAt?: DateValueObject;
   updatedAt?: DateValueObject;
@@ -21,6 +23,7 @@ export type UserPrimitivesProps = {
   username: string;
   email: string;
   password: string;
+  phone?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -30,6 +33,7 @@ export class User extends AggregateRoot {
   private username: UserName;
   private email: UserEmail;
   private password: UserPassword;
+  private phone?: UserPhone;
 
   private constructor(props: UserProps) {
     super();
@@ -38,6 +42,7 @@ export class User extends AggregateRoot {
     this.username = props.username;
     this.email = props.email;
     this.password = props.password;
+    this.phone = props.phone;
 
     this.createdAt = props.createdAt ?? DateValueObject.now();
     this.updatedAt = props.updatedAt ?? DateValueObject.now();
@@ -61,6 +66,7 @@ export class User extends AggregateRoot {
       username: UserName.build(props.username),
       email: UserEmail.build(props.email),
       password: UserPassword.build(props.password),
+      phone: props.phone ? UserPhone.build(props.phone): undefined,
 
       createdAt: DateValueObject.fromString(props.createdAt),
       updatedAt: DateValueObject.fromString(props.updatedAt),
@@ -73,6 +79,7 @@ export class User extends AggregateRoot {
       username: this.username.value,
       email: this.email.value,
       password: this.password.value,
+      phone: this.phone?.value,
 
       createdAt: this.createdAt.toString(),
       updatedAt: this.updatedAt.toString(),

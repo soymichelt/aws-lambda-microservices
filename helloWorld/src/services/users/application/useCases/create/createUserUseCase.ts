@@ -10,6 +10,7 @@ import { UserName } from '@services/users/domain/valueObjects/userName';
 import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
 import { UserPassword } from '@services/users/domain/valueObjects/userPassword';
 import { EncriptionService } from '@shared/domain/services/encriptionService';
+import { UserPhone } from '@services/users/domain/valueObjects/userPhone';
 
 @injectable()
 export class CreateUserUseCase extends UseCase<CreateUserRequest, UserResponse> {
@@ -29,6 +30,7 @@ export class CreateUserUseCase extends UseCase<CreateUserRequest, UserResponse> 
       username: UserName.build(request.username),
       email: UserEmail.build(request.email),
       password: UserPassword.build(encryptedPassword),
+      phone: UserPhone.build(request.phone),
     });
 
     await this.repository.update(user);
