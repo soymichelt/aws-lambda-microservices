@@ -9,9 +9,7 @@ export class SnsRequestParserController implements RequestParserController {
   }
 
   public parseRequest<T>(event: SNSEvent, _context: Context): T {
-    return {
-      body: this.getBodyFromEvent(event),
-    } as T;
+    return this.getBodyFromEvent(event) as T;
   }
 
   private getBodyFromEvent(event: SNSEvent): Record<string, any> {
@@ -20,13 +18,9 @@ export class SnsRequestParserController implements RequestParserController {
     if (!Records.length) return;
 
     if (Records.length === 1) {
-      return {
-        body: JSON.parse(Records[0].Sns.Message),
-      };
+      return JSON.parse(Records[0].Sns.Message || '{}');
     }
 
-    return {
-      body: Records.map(record => JSON.parse(record.Sns.Message)),
-    };
+    return Records.map(record => JSON.parse(record.Sns.Message));
   }
 }
