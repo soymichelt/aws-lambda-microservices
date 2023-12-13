@@ -4,6 +4,8 @@ import { User } from '@services/users/domain/user';
 
 type UserRemovedEventPrimitives = BaseEventPrimitivesProps & {
   userId: string;
+  email: string;
+  username: string;
 };
 
 export class UserRemovedEvent extends DomainEvent {
@@ -30,6 +32,8 @@ export class UserRemovedEvent extends DomainEvent {
       eventDate: this.eventDate.toISOString(),
       eventType: this.eventType,
       userId: userPrimitives.userId,
+      email: userPrimitives.email,
+      username: userPrimitives.username,
     };
   }
 }

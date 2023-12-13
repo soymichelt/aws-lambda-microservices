@@ -52,3 +52,16 @@ user-remove:
     - httpApi:
         method: DELETE
         path: /helloWorld/users/{userId}
+
+user-notify-removed:
+  role: IamHelloWorldLambdaAccessRole
+  handler: src/services/users/infrastructure/functions/sns/notifRemoved/handler.handler
+  environment:
+    SES_EMAIL_FROM: ${ssm:/hello-world/mailing/SES/SES_EMAIL_FROM}
+  events:
+    - sns:
+        arn: !Ref EventBusSnsHelloWorldTopic
+        topicName: ${self:custom.constants.HELLO_WORLD.SNS_TOPIC}
+        filterPolicy:
+          event_type:
+            - 'soymichel-dev.hello-world.v1.user.removed'
