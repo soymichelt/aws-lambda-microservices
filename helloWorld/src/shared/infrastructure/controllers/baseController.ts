@@ -17,7 +17,7 @@ export abstract class BaseController<RequestType, ResponseType> {
   public async execute(event: any, context: Context): Promise<BaseResponseType> {
     try {
       const request = this.parseEventToRequest(event, context);
-      const result = await this.run(request, context);
+      const result = await this.run(request, context, event);
 
       return this.generateSuccessResult(result);
     }
@@ -26,7 +26,7 @@ export abstract class BaseController<RequestType, ResponseType> {
     }
   }
 
-  public abstract run(request: RequestType, context: Context): Promise<ResponseType>;
+  public abstract run(request: RequestType, context: Context, event: any): Promise<ResponseType>;
 
   protected getSuccessStatusCode(response: ResponseType): number {
     if (!response) {
