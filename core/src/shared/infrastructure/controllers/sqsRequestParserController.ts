@@ -9,9 +9,7 @@ export class SqsRequestParserController implements RequestParserController {
   }
 
   public parseRequest<T>(event: SQSEvent, _context: Context): T {
-    return {
-      body: this.getBodyFromEvent(event),
-    } as T;
+    return this.getBodyFromEvent(event) as T;
   }
 
   private getBodyFromEvent(event: SQSEvent): Record<string, any> {
@@ -20,13 +18,9 @@ export class SqsRequestParserController implements RequestParserController {
     if (!Records.length) return;
 
     if (Records.length === 1) {
-      return {
-        body: JSON.parse(Records[0].body),
-      };
+      return JSON.parse(Records[0].body);
     }
 
-    return {
-      body: Records.map(record => JSON.parse(record.body)),
-    };
+    return Records.map(record => JSON.parse(record.body));
   }
 }
