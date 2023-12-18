@@ -11,6 +11,10 @@ export class StringValueObject {
     return new StringValueObject(value);
   }
 
+  public equals(other: StringValueObject): boolean {
+    return this.value === other.value;
+  }
+
   private guardIfString(value: string): void {
     if (typeof value !== 'string') {
       throw new Error();
