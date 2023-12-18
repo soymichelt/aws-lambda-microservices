@@ -31,11 +31,8 @@ user-get-all:
   role: IamHelloWorldLambdaAccessRole
   handler: src/services/users/infrastructure/functions/http/getAll/handler.handler
   environment:
-    SNS_TOPIC_ARN: !Ref EventBusSnsHelloWorldTopic
     MONGO_DATABASE_URI: ${ssm:/hello-world/databases/MONGO_URI}
     MONGO_DATABASE_NAME: ${ssm:/hello-world/databases/MONGO_NAME}
-    CRYPTO_SECRET_KEY: ${ssm:/hello-world/crypto/SECRET_KEY}
-    CRYPTO_SECRET_IV: ${ssm:/hello-world/crypto/SECRET_IV}
   events:
     - httpApi:
         method: GET
