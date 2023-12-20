@@ -18,9 +18,11 @@ import { MailingService } from '@shared/domain/services/mailingService';
 import { SmsService } from '@shared/domain/services/smsService';
 import { SnsSmsService } from '@shared/infrastructure/services/sms/SnsSmsService';
 import { SesMailingService } from '@shared/infrastructure/services/mailing/sesMailingService';
+import { AuthorizerRequestParserController } from '@shared/infrastructure/controllers/authorizerRequestParserController';
 
 container
   .register<RequestParserController>('RequestParserController', HttpRequestParserController)
+  .register<RequestParserController>('RequestParserController', AuthorizerRequestParserController)
   .register<RequestParserController>('RequestParserController', SnsRequestParserController)
   .register<ManagerRequestParsersController>('ManagerRequestParsersController', ManagerRequestParsersController)
   .register<Logger>('Logger', {

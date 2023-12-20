@@ -37,6 +37,9 @@ user-get-all:
     - httpApi:
         method: GET
         path: /helloWorld/users
+        authorizer:
+          id: ${cf:core-${self:provider.stage}.CoreApiGatewayV2AuthorizerId}
+          type: request
 
 user-remove:
   role: IamHelloWorldLambdaAccessRole
