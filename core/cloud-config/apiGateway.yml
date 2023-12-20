@@ -26,9 +26,10 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Join
-        - '-'
-        - - !Ref CoreApiGatewayV2
-          - access-logs
+        - '/'
+        - - '/aws/apiGateway'
+          - !Ref CoreApiGatewayV2
+          - 'access-logs'
 
   CoreApiGatewayV2Authorizer:
     Type: AWS::ApiGatewayV2::Authorizer
@@ -38,6 +39,7 @@ Resources:
       AuthorizerType: REQUEST
       AuthorizerPayloadFormatVersion: '2.0'
       AuthorizerResultTtlInSeconds: 300
+      EnableSimpleResponses: false
       AuthorizerUri:
         Fn::Sub: 'arn:aws:apigateway:${self:custom.constants.REGION}:lambda:path/2015-03-31/functions/${self:custom.environment.HELLO_WORLD.AUTH_LAMBDA_REQUEST_AUTHORIZER}/invocations'
       IdentitySource:
