@@ -5,7 +5,7 @@ import { injectable } from 'tsyringe';
 @injectable()
 export class HttpRequestParserController implements RequestParserController {
   public match(event: APIGatewayProxyEventV2, _context: Context): boolean {
-    return !!(event.requestContext?.http?.method);
+    return !!(event.requestContext?.http?.method && !(event as any).routeArn);
   }
 
   public parseRequest<T>(event: APIGatewayProxyEventV2, _context: Context): T {
