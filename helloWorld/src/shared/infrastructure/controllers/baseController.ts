@@ -36,13 +36,7 @@ export abstract class BaseController<RequestType, ResponseType> {
     return 200;
   }
 
-  private parseEventToRequest(event: any, context: Context): RequestType {
-    const parser = this.managerRequestParser.getParser(event, context);
-    const request = parser.parseRequest<RequestType>(event, context);
-    return request;
-  }
-
-  private generateSuccessResult(response: ResponseType): BaseResponseType {
+  protected generateSuccessResult(response: ResponseType): BaseResponseType {
     return {
       statusCode: this.getSuccessStatusCode(response),
       body: response
@@ -51,7 +45,7 @@ export abstract class BaseController<RequestType, ResponseType> {
     };
   }
 
-  private generateErrorResult(error: DomainException): BaseResponseType {
+  protected generateErrorResult(error: DomainException): BaseResponseType {
     this.logger.error({
       ...(error.toPrimitives ? error.toPrimitives() : error),
       stack: error.stack,
@@ -64,5 +58,11 @@ export abstract class BaseController<RequestType, ResponseType> {
         message: error.message,
       }),
     };
+  }
+
+  private parseEventToRequest(event: any, context: Context): RequestType {
+    const parser = this.managerRequestParser.getParser(event, context);
+    const request = parser.parseRequest<RequestType>(event, context);
+    return request;
   }
 }
