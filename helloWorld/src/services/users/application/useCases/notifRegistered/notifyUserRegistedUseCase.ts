@@ -1,16 +1,16 @@
-import { UseCase } from '@shared/domain/useCases/useCase';
-import { NotifyUserRegisteredRequest } from '@services/users/application/useCases/notifRegistered/notifyUserRegisteredRequest';
 import { UserResponse } from '@services/users/application/responses/userResponse';
-import { inject, injectable } from 'tsyringe';
+import { NotifyUserRegisteredRequest } from '@services/users/application/useCases/notifRegistered/notifyUserRegisteredRequest';
 import { UserRepository } from '@services/users/domain/repositories/userRepository';
-import { Id } from '@shared/domain/valueObjects/id';
 import { MailingService } from '@shared/domain/services/mailingService';
+import { UseCase } from '@shared/domain/useCases/useCase';
+import { Id } from '@shared/domain/valueObjects/id';
+import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class NotifyUserRegisteredUseCase extends UseCase<NotifyUserRegisteredRequest, UserResponse> {
   constructor(
     @inject('UserRepository') private repository: UserRepository,
-    @inject('MailingService') private mailing: MailingService
+    @inject('MailingService') private mailing: MailingService,
   ) {
     super();
   }

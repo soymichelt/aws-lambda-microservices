@@ -1,7 +1,7 @@
 import { User } from '@services/users/domain/user';
-import { Id } from '@shared/domain/valueObjects/id';
 import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
 import { UserName } from '@services/users/domain/valueObjects/userName';
+import { Id } from '@shared/domain/valueObjects/id';
 
 export interface UserRepository {
   all(): Promise<User[]>;

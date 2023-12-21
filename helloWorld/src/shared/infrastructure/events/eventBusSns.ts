@@ -1,4 +1,4 @@
-import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
+import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
 import { DomainEvent } from '@shared/domain/events/domainEvent';
 import { EventBus } from '@shared/domain/events/eventBus';
 import { IntegrationEvent } from '@shared/domain/events/integrationEvent';
@@ -31,7 +31,7 @@ export class EventBusSns implements EventBus {
       await this.sendSnsMessage(events);
     }
 
-    const promises = (events as Array<DomainEvent | IntegrationEvent>).map(event => this.sendSnsMessage(event));
+    const promises = (events as (DomainEvent | IntegrationEvent)[]).map((event) => this.sendSnsMessage(event));
     await Promise.all(promises);
   }
 
@@ -55,10 +55,9 @@ export class EventBusSns implements EventBus {
   private validateEventBus(props: EventBusSnsProps): void {
     if (!props.serviceName || !props.version || !props.awsRegion || !props.topicArn) {
       throw new ArgRequiredException(
-        Object
-          .entries(props)
+        Object.entries(props)
           .filter(([_, value]) => !value)
-          .map(([key]) => key)
+          .map(([key]) => key),
       );
     }
   }

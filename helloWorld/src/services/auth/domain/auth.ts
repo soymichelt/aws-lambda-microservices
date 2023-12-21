@@ -1,9 +1,9 @@
-import { AggregateRoot } from '@shared/domain/aggregateRoot';
-import { UserToken } from '@services/auth/domain/valueObjects/userToken';
 import { UserAuthVerifiedEvent } from '@services/auth/domain/events/userAuthVerifiedEvent';
+import { UserId } from '@services/auth/domain/valueObjects/userId';
 import { UserRole } from '@services/auth/domain/valueObjects/userRole';
 import { UserRoleVerificationType } from '@services/auth/domain/valueObjects/userRoleVerification';
-import { UserId } from '@services/auth/domain/valueObjects/userId';
+import { UserToken } from '@services/auth/domain/valueObjects/userToken';
+import { AggregateRoot } from '@shared/domain/aggregateRoot';
 
 type UserAuthProps = {
   userId: UserId;
@@ -38,7 +38,7 @@ export class UserAuth extends AggregateRoot {
     return new UserAuth({
       userId: UserId.fromString(props.userId),
       token: UserToken.build(props.token),
-      roles: props.roles?.map(role => UserRole.build(role)) || [],
+      roles: props.roles?.map((role) => UserRole.build(role)) || [],
     });
   }
 
@@ -59,7 +59,7 @@ export class UserAuth extends AggregateRoot {
     return {
       userId: this.userId.toString(),
       token: this.token.value,
-      roles: this.roles.map(role => role.value),
+      roles: this.roles.map((role) => role.value),
     };
   }
 }

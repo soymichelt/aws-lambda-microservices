@@ -1,13 +1,12 @@
-import { UseCase } from '@shared/domain/useCases/useCase';
-import { NotifyUserRemovedRequest } from './notifyUserRemovedRequest';
-import { inject, injectable } from 'tsyringe';
 import { MailingService } from '@shared/domain/services/mailingService';
+import { UseCase } from '@shared/domain/useCases/useCase';
+import { inject, injectable } from 'tsyringe';
+
+import { NotifyUserRemovedRequest } from './notifyUserRemovedRequest';
 
 @injectable()
 export class NotifyUserRemovedUseCase extends UseCase<NotifyUserRemovedRequest, void> {
-  constructor(
-    @inject('MailingService') private mailing: MailingService
-  ) {
+  constructor(@inject('MailingService') private mailing: MailingService) {
     super();
   }
 

@@ -5,9 +5,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class RemoveUserController extends BaseController<RemoveUserRequest, string> {
-  constructor(
-    @inject('RemoveUserUseCase') private useCase: RemoveUserUseCase
-  ) {
+  constructor(@inject('RemoveUserUseCase') private useCase: RemoveUserUseCase) {
     super();
   }
 
@@ -16,5 +14,4 @@ export class RemoveUserController extends BaseController<RemoveUserRequest, stri
 
     return 'User removed';
   }
-
 }

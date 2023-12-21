@@ -1,5 +1,5 @@
-import { APIGatewayRequestAuthorizerEventV2, Context } from 'aws-lambda';
 import { RequestParserController } from '@shared/infrastructure/controllers/requestParserController';
+import { APIGatewayRequestAuthorizerEventV2, Context } from 'aws-lambda';
 
 export class AuthorizerRequestParserController implements RequestParserController {
   public match(event: APIGatewayRequestAuthorizerEventV2, _context: Context): boolean {

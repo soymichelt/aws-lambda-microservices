@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Context } from 'aws-lambda';
 
 export interface RequestParserController {

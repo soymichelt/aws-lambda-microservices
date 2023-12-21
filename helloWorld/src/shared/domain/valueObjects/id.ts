@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 export class Id {
   readonly value: ObjectId;
 
-  protected constructor (value: ObjectId) {
+  protected constructor(value: ObjectId) {
     this.value = value;
   }
 

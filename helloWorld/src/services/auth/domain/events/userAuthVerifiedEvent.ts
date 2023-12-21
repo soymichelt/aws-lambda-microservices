@@ -1,7 +1,7 @@
-import { DomainEvent } from '@shared/domain/events/domainEvent';
 import { UserAuth } from '@services/auth/domain/auth';
-import { BaseEventPrimitivesProps } from '@shared/domain/events/baseEvent';
 import { UserRoleVerificationType } from '@services/auth/domain/valueObjects/userRoleVerification';
+import { BaseEventPrimitivesProps } from '@shared/domain/events/baseEvent';
+import { DomainEvent } from '@shared/domain/events/domainEvent';
 
 type UserAuthVerifiedEventPrimitives = BaseEventPrimitivesProps & {
   userId: string;
@@ -15,7 +15,10 @@ export class UserAuthVerifiedEvent extends DomainEvent {
   private readonly verificationType: UserRoleVerificationType;
 
   private constructor(auth: UserAuth, verificationType: UserRoleVerificationType) {
-    super({ aggregateId: auth.userId.toString(), eventType: UserAuthVerifiedEvent.EVENT_NAME });
+    super({
+      aggregateId: auth.userId.toString(),
+      eventType: UserAuthVerifiedEvent.EVENT_NAME,
+    });
 
     this.auth = auth;
     this.verificationType = verificationType;

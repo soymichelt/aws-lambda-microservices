@@ -1,18 +1,19 @@
-import { Context } from 'aws-lambda';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { VerifyIfAuthorizedUseCase } from '@services/auth/application/useCases/verify/verifyIfAuthorizedUseCase';
-import { BaseController } from '@shared/infrastructure/controllers/baseController';
-import { inject, injectable } from 'tsyringe';
 import { UserRoleVerificationTypeEnum } from '@services/auth/domain/valueObjects/userRoleVerification';
-import { BaseResponseType } from '@shared/infrastructure/controllers/responses/baseResponseType';
 import { DomainException } from '@shared/domain/exceptions/baseException';
 import { UnauthorizedException } from '@shared/domain/exceptions/unauthorizedException';
+import { BaseController } from '@shared/infrastructure/controllers/baseController';
+import { BaseResponseType } from '@shared/infrastructure/controllers/responses/baseResponseType';
+import { Context } from 'aws-lambda';
+import { inject, injectable } from 'tsyringe';
 
 type VerifyIfAuthorizedControllerRequest = {
   routeArn: string;
   headers: {
     'x-user-id': string;
     'x-auth-token': string;
-  },
+  };
 };
 
 type Statement = {
@@ -33,18 +34,22 @@ type AuthorizerLambdaIamResponse = {
 };
 
 @injectable()
-export class VerifyIfAuthorizedController extends BaseController<VerifyIfAuthorizedControllerRequest, AuthorizerLambdaIamResponse> {
-  constructor(
-    @inject('VerifyIfAuthorizedUseCase') private useCase: VerifyIfAuthorizedUseCase
-  ) {
+export class VerifyIfAuthorizedController extends BaseController<
+  VerifyIfAuthorizedControllerRequest,
+  AuthorizerLambdaIamResponse
+> {
+  constructor(@inject('VerifyIfAuthorizedUseCase') private useCase: VerifyIfAuthorizedUseCase) {
     super();
   }
 
-  public async run(request: VerifyIfAuthorizedControllerRequest, context: Context): Promise<AuthorizerLambdaIamResponse> {
-    const { "x-user-id": userId, "x-auth-token": token } = request.headers;
+  public async run(
+    request: VerifyIfAuthorizedControllerRequest,
+    context: Context,
+  ): Promise<AuthorizerLambdaIamResponse> {
+    const { 'x-user-id': userId, 'x-auth-token': token } = request.headers;
     const response = await this.useCase.run({
-      userId: userId,
-      token: token,
+      userId,
+      token,
       role: context.functionName,
     });
 
@@ -63,7 +68,7 @@ export class VerifyIfAuthorizedController extends BaseController<VerifyIfAuthori
 
     return response;
   }
-  
+
   protected override generateErrorResult(error: DomainException): BaseResponseType {
     this.logger.error({
       ...(error.toPrimitives ? error.toPrimitives() : error),
@@ -77,17 +82,27 @@ export class VerifyIfAuthorizedController extends BaseController<VerifyIfAuthori
     };
   }
 
-  private generatePolicyDocument(principalId: string, effect: string, resource: string, context: Record<string, any> = {}): AuthorizerLambdaIamResponse {
-    const response: AuthorizerLambdaIamResponse = { principalId, context };
+  private generatePolicyDocument(
+    principalId: string,
+    effect: string,
+    resource: string,
+    context: Record<string, any> = {},
+  ): AuthorizerLambdaIamResponse {
+    const response: AuthorizerLambdaIamResponse = {
+      principalId,
+      context,
+    };
 
     if (effect && resource) {
       response.policyDocument = {
         Version: '2012-10-17',
-        Statement: [{
-          Action: 'execute-api:Invoke',
-          Effect: effect,
-          Resource: resource,
-        }],
+        Statement: [
+          {
+            Action: 'execute-api:Invoke',
+            Effect: effect,
+            Resource: resource,
+          },
+        ],
       };
     }
 

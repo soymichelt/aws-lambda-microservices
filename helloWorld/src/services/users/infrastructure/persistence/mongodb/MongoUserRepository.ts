@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserRepository } from '@services/users/domain/repositories/userRepository';
 import { User } from '@services/users/domain/user';
 import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
@@ -16,10 +17,10 @@ export class MongoUserRepository extends MongoRepository<User> implements UserRe
 
   public async all(): Promise<User[]> {
     const collection = await this.collection();
-    const documents = await collection.find({ }).toArray();
+    const documents = await collection.find({}).toArray();
     if (!documents || !documents.length) return [];
 
-    return documents.map(document => this.mapToUser(document));
+    return documents.map((document) => this.mapToUser(document));
   }
 
   public async find(userId: Id): Promise<User> {

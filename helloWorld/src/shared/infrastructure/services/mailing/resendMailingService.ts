@@ -1,6 +1,6 @@
-import { Resend } from 'resend';
-import { MailingService, SendEmailProps } from '@shared/domain/services/mailingService';
 import { ArgRequiredException } from '@shared/domain/exceptions/argRequiredException';
+import { MailingService, SendEmailProps } from '@shared/domain/services/mailingService';
+import { Resend } from 'resend';
 
 type ResendMailingServiceProps = {
   apiKey: string;
@@ -32,10 +32,9 @@ export class ResendMailingService implements MailingService {
   private validateSmsService(props: ResendMailingServiceProps): void {
     if (!props.apiKey || !props.emailFrom) {
       throw new ArgRequiredException(
-        Object
-          .entries(props)
+        Object.entries(props)
           .filter(([_, value]) => !value)
-          .map(([key]) => key)
+          .map(([key]) => key),
       );
     }
   }

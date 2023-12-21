@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ErrorType } from '@shared/domain/valueObjects/errorTypeEnum';
 import { IntegerValueObject } from '@shared/domain/valueObjects/integerValueObject';
 import { StringValueObject } from '@shared/domain/valueObjects/stringValueObject';
-import { ErrorType } from '@shared/domain/valueObjects/errorTypeEnum';
 
 type DomainExceptionPropsType = {
   name: StringValueObject;

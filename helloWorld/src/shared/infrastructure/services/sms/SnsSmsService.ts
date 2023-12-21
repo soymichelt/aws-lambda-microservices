@@ -38,10 +38,9 @@ export class SnsSmsService implements SmsService {
   private validateSmsService(props: SnsSmsServiceProps): void {
     if (!props.awsRegion || !props.sender) {
       throw new ArgRequiredException(
-        Object
-          .entries(props)
+        Object.entries(props)
           .filter(([_, value]) => !value)
-          .map(([key]) => key)
+          .map(([key]) => key),
       );
     }
   }

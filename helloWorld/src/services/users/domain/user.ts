@@ -1,12 +1,12 @@
-import { AggregateRoot } from '@shared/domain/aggregateRoot';
+import { UserCreatedEvent } from '@services/users/domain/events/userCreatedEvent';
+import { UserRemovedEvent } from '@services/users/domain/events/userRemovedEvent';
+import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
 import { UserName } from '@services/users/domain/valueObjects/userName';
 import { UserPassword } from '@services/users/domain/valueObjects/userPassword';
-import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
+import { UserPhone } from '@services/users/domain/valueObjects/userPhone';
+import { AggregateRoot } from '@shared/domain/aggregateRoot';
 import { DateValueObject } from '@shared/domain/valueObjects/dateValueObject';
 import { Id } from '@shared/domain/valueObjects/id';
-import { UserCreatedEvent } from '@services/users/domain/events/userCreatedEvent';
-import { UserPhone } from '@services/users/domain/valueObjects/userPhone';
-import { UserRemovedEvent } from '@services/users/domain/events/userRemovedEvent';
 
 type UserProps = {
   userId: Id;
@@ -30,7 +30,7 @@ export type UserPrimitivesProps = {
 };
 
 export class User extends AggregateRoot {
-  readonly userId: Id
+  readonly userId: Id;
   private username: UserName;
   private email: UserEmail;
   private password: UserPassword;
@@ -67,7 +67,7 @@ export class User extends AggregateRoot {
       username: UserName.build(props.username),
       email: UserEmail.build(props.email),
       password: UserPassword.build(props.password),
-      phone: props.phone ? UserPhone.build(props.phone): undefined,
+      phone: props.phone ? UserPhone.build(props.phone) : undefined,
 
       createdAt: DateValueObject.fromString(props.createdAt),
       updatedAt: DateValueObject.fromString(props.updatedAt),

@@ -6,10 +6,6 @@ export class IntegerValueObject {
     this.value = value;
   }
 
-  public equals(other: IntegerValueObject): boolean {
-    return other.value === this.value;
-  }
-
   public static build(value: number): IntegerValueObject {
     return new IntegerValueObject(value);
   }
@@ -17,6 +13,10 @@ export class IntegerValueObject {
   public static fromString(value: string): IntegerValueObject {
     const valueParsed = parseInt(value);
     return new IntegerValueObject(valueParsed);
+  }
+
+  public equals(other: IntegerValueObject): boolean {
+    return other.value === this.value;
   }
 
   private guardIfInteger(value: number): void {

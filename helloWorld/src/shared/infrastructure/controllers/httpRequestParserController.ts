@@ -1,5 +1,6 @@
-import { APIGatewayProxyEventV2, Context } from 'aws-lambda';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestParserController } from '@shared/infrastructure/controllers/requestParserController';
+import { APIGatewayProxyEventV2, Context } from 'aws-lambda';
 import { injectable } from 'tsyringe';
 
 @injectable()

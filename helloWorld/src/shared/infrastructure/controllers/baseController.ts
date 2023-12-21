@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { DomainException } from '@shared/domain/exceptions/baseException';
+import { Logger } from '@shared/domain/loggers/logger';
+import { ManagerRequestParsersController } from '@shared/infrastructure/controllers/managerRequestParsersController';
+import { BaseResponseType } from '@shared/infrastructure/controllers/responses/baseResponseType';
 import { Context } from 'aws-lambda';
 import { container } from 'tsyringe';
-import { ManagerRequestParsersController } from '@shared/infrastructure/controllers/managerRequestParsersController';
-import { DomainException } from '@shared/domain/exceptions/baseException';
-import { BaseResponseType } from '@shared/infrastructure/controllers/responses/baseResponseType';
-import { Logger } from '@shared/domain/loggers/logger';
 
 export abstract class BaseController<RequestType, ResponseType> {
   protected logger: Logger;
@@ -20,13 +21,10 @@ export abstract class BaseController<RequestType, ResponseType> {
       const result = await this.run(request, context, event);
 
       return this.generateSuccessResult(result);
-    }
-    catch (error) {
+    } catch (error) {
       return this.generateErrorResult(error);
     }
   }
-
-  public abstract run(request: RequestType, context: Context, event: any): Promise<ResponseType>;
 
   protected getSuccessStatusCode(response: ResponseType): number {
     if (!response) {
@@ -39,9 +37,7 @@ export abstract class BaseController<RequestType, ResponseType> {
   protected generateSuccessResult(response: ResponseType): BaseResponseType {
     return {
       statusCode: this.getSuccessStatusCode(response),
-      body: response
-        ? JSON.stringify(response)
-        : undefined,
+      body: response ? JSON.stringify(response) : undefined,
     };
   }
 
@@ -65,4 +61,6 @@ export abstract class BaseController<RequestType, ResponseType> {
     const request = parser.parseRequest<RequestType>(event, context);
     return request;
   }
+
+  public abstract run(request: RequestType, context: Context, event: any): Promise<ResponseType>;
 }

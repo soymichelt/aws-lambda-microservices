@@ -1,10 +1,11 @@
-import { injectable } from 'tsyringe';
-import { createHash } from 'crypto'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserAuth } from '@services/auth/domain/auth';
 import { UserAuthRepository } from '@services/auth/domain/repositories/userAuthRepository';
-import { MongoRepository } from '@shared/infrastructure/persistence/mongodb/mongoRepository';
-import { UserToken } from '@services/auth/domain/valueObjects/userToken';
 import { UserId } from '@services/auth/domain/valueObjects/userId';
+import { UserToken } from '@services/auth/domain/valueObjects/userToken';
+import { MongoRepository } from '@shared/infrastructure/persistence/mongodb/mongoRepository';
+import { createHash } from 'crypto';
+import { injectable } from 'tsyringe';
 
 const USER_AUTH_COLLECTION = 'users';
 
@@ -36,7 +37,7 @@ export class MongoUserAuthRepository extends MongoRepository<UserAuth> implement
     return UserAuth.fromPrimitives({
       userId: document.userId,
       token: document.token,
-      roles: document.roles?.map((role: { name: any; }) => role.name) || [],
+      roles: document.roles?.map((role: { name: any }) => role.name) || [],
     });
   }
 }

@@ -1,8 +1,8 @@
 import { User } from '@services/users/domain/user';
-import { Id } from '@shared/domain/valueObjects/id';
-import { UserName } from '@services/users/domain/valueObjects/userName';
 import { UserEmail } from '@services/users/domain/valueObjects/userEmail';
+import { UserName } from '@services/users/domain/valueObjects/userName';
 import { UserPassword } from '@services/users/domain/valueObjects/userPassword';
+import { Id } from '@shared/domain/valueObjects/id';
 
 describe('Tests User domain entity', () => {
   test('Test create instance object', () => {

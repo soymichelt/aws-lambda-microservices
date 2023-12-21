@@ -1,11 +1,11 @@
+import { AggregateRoot } from '@shared/domain/aggregateRoot';
+import { Id } from '@shared/domain/valueObjects/id';
+import { MongoClientFactory } from '@shared/infrastructure/persistence/mongodb/mongoClientFactory';
 import { Collection } from 'mongodb';
 import { container } from 'tsyringe';
-import { AggregateRoot } from '@shared/domain/aggregateRoot';
-import { MongoClientFactory } from '@shared/infrastructure/persistence/mongodb/mongoClientFactory';
-import { Id } from '@shared/domain/valueObjects/id';
 
 export type MongoRepositoryProps = {
- collectionName: string;
+  collectionName: string;
 };
 
 export class MongoRepository<T extends AggregateRoot> {
@@ -20,7 +20,7 @@ export class MongoRepository<T extends AggregateRoot> {
   public async persist(id: Id, entity: T, collectionName?: string): Promise<void> {
     const collection = await this.collection(collectionName);
     const changes = entity.toPrimitives();
-    
+
     await collection.updateOne(
       { _id: id.value },
       {
@@ -30,7 +30,7 @@ export class MongoRepository<T extends AggregateRoot> {
           id: undefined,
         },
       },
-      { upsert: true }
+      { upsert: true },
     );
   }
 

@@ -22,6 +22,9 @@ export class UserRoleVerificationType extends EnumValueObject<UserRoleVerificati
   }
 
   public static unauthorized(): UserRoleVerificationType {
-    return new UserRoleVerificationType(UserRoleVerificationTypeEnum.unauthorized, USER_ROLE_VERIFICATION_TYPE_ENUM_VALUES);
+    return new UserRoleVerificationType(
+      UserRoleVerificationTypeEnum.unauthorized,
+      USER_ROLE_VERIFICATION_TYPE_ENUM_VALUES,
+    );
   }
 }

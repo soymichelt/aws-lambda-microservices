@@ -17,13 +17,10 @@ export class SsmKeyStoreService implements KeyStoreService {
     const command = new GetParametersCommand({
       Names: keys,
       WithDecryption: true,
-    })
+    });
 
     const params = await client.send(command);
-    const result = params
-      .Parameters
-      ?.filter(param => !!param && !!param?.Value)
-      .map(param => param.Value) || [];
+    const result = params.Parameters?.filter((param) => !!param && !!param?.Value).map((param) => param.Value) || [];
 
     return result;
   }

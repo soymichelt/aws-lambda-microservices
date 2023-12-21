@@ -5,9 +5,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class NotifyUserRemovedController extends BaseController<NotifyUserRemovedRequest, string> {
-  constructor(
-    @inject('NotifyUserRemovedUseCase') private useCase: NotifyUserRemovedUseCase
-  ) {
+  constructor(@inject('NotifyUserRemovedUseCase') private useCase: NotifyUserRemovedUseCase) {
     super();
   }
 

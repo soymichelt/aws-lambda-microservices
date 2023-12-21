@@ -3,7 +3,7 @@ import { ErrorType, ErrorTypeEnum } from '@shared/domain/valueObjects/errorTypeE
 describe('Tests ErrorTypeEnum', () => {
   test('Test create instance object', () => {
     const errorType = ErrorType.build('error' as ErrorTypeEnum);
-    
+
     expect(errorType.value).toEqual('error');
   });
 

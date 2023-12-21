@@ -6,9 +6,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class GetAllUsersController extends BaseController<void, UserResponse[]> {
-  constructor(
-    @inject('GetAllUsersUseCase') private useCase: GetAllUsersUseCase
-  ) {
+  constructor(@inject('GetAllUsersUseCase') private useCase: GetAllUsersUseCase) {
     super();
   }
 

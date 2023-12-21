@@ -7,9 +7,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class GetHealthCheckController extends BaseController<void, HealthCheckResponse> {
-  constructor (
-    @inject('GetHealthCheckUseCase') private useCase: GetHealthCheckUseCase
-  ) {
+  constructor(@inject('GetHealthCheckUseCase') private useCase: GetHealthCheckUseCase) {
     super();
   }
 

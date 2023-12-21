@@ -1,15 +1,16 @@
-import { UseCase } from '@shared/domain/useCases/useCase';
-import { RemoveUserRequest } from './removeUserRequest';
-import { inject, injectable } from 'tsyringe';
 import { UserRepository } from '@services/users/domain/repositories/userRepository';
-import { Id } from '@shared/domain/valueObjects/id';
 import { EventBus } from '@shared/domain/events/eventBus';
+import { UseCase } from '@shared/domain/useCases/useCase';
+import { Id } from '@shared/domain/valueObjects/id';
+import { inject, injectable } from 'tsyringe';
+
+import { RemoveUserRequest } from './removeUserRequest';
 
 @injectable()
 export class RemoveUserUseCase extends UseCase<RemoveUserRequest, void> {
   constructor(
     @inject('UserRepository') private repository: UserRepository,
-    @inject('EventBus') private eventBus: EventBus
+    @inject('EventBus') private eventBus: EventBus,
   ) {
     super();
   }
@@ -21,7 +22,7 @@ export class RemoveUserUseCase extends UseCase<RemoveUserRequest, void> {
     if (!user) {
       return;
     }
-    
+
     user.remove();
 
     await this.repository.delete(userId);

@@ -1,5 +1,5 @@
 import { ArgRequiredException } from '@shared/domain/exceptions/argRequiredException';
-import { MongoClient, Db } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 import { injectable } from 'tsyringe';
 
 type MongoClientFactoryProps = {
@@ -44,10 +44,9 @@ export class MongoClientFactory {
   private validateMongoClientProps(props: MongoClientFactoryProps): void {
     if (!props.uri) {
       throw new ArgRequiredException(
-        Object
-          .entries(props)
+        Object.entries(props)
           .filter(([_, value]) => !value)
-          .map(([key]) => key)
+          .map(([key]) => key),
       );
     }
   }

@@ -1,4 +1,4 @@
-import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
+import { SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
 import { DomainEvent } from '@shared/domain/events/domainEvent';
 import { EventBus } from '@shared/domain/events/eventBus';
 import { IntegrationEvent } from '@shared/domain/events/integrationEvent';
@@ -19,7 +19,7 @@ export class EventBusSqs implements EventBus {
   private queueUrl: string;
   private delaySeconds: number;
 
-  constructor (props: EventBusSqsProps) {
+  constructor(props: EventBusSqsProps) {
     this.validateEventBus(props);
 
     this.serviceName = props.serviceName;
@@ -34,7 +34,7 @@ export class EventBusSqs implements EventBus {
       await this.sendSqsMessage(events);
     }
 
-    const promises = (events as Array<DomainEvent | IntegrationEvent>).map(event => this.sendSqsMessage(event));
+    const promises = (events as (DomainEvent | IntegrationEvent)[]).map((event) => this.sendSqsMessage(event));
     await Promise.all(promises);
   }
 
@@ -44,7 +44,7 @@ export class EventBusSqs implements EventBus {
       DelaySeconds: this.delaySeconds,
       MessageAttributes: {
         event_type: {
-          DataType: "String",
+          DataType: 'String',
           StringValue: `${this.serviceName}.${this.version}.${event.eventType}`,
         },
       },
@@ -59,10 +59,9 @@ export class EventBusSqs implements EventBus {
   private validateEventBus(props: EventBusSqsProps): void {
     if (!props.serviceName || !props.version || !props.awsRegion || !props.queueUrl) {
       throw new ArgRequiredException(
-        Object
-          .entries(props)
+        Object.entries(props)
           .filter(([key, value]) => !value && key !== 'delaySeconds')
-          .map(([key]) => key)
+          .map(([key]) => key),
       );
     }
   }

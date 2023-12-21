@@ -1,4 +1,4 @@
-import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
+import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
 import { ArgRequiredException } from '@shared/domain/exceptions/argRequiredException';
 import { MailingService, SendEmailProps } from '@shared/domain/services/mailingService';
 
@@ -44,10 +44,9 @@ export class SesMailingService implements MailingService {
   private validateSmsService(props: SesMailingServiceProps): void {
     if (!props.awsRegion || !props.emailFrom) {
       throw new ArgRequiredException(
-        Object
-          .entries(props)
+        Object.entries(props)
           .filter(([_, value]) => !value)
-          .map(([key]) => key)
+          .map(([key]) => key),
       );
     }
   }

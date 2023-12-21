@@ -1,4 +1,4 @@
-import { EnumValueObject } from "./enumValueObject";
+import { EnumValueObject } from './enumValueObject';
 
 export enum ErrorTypeEnum {
   warn = 'warn',

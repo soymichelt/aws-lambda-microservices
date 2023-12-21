@@ -1,6 +1,6 @@
+import { User } from '@services/users/domain/user';
 import { BaseEventPrimitivesProps } from '@shared/domain/events/baseEvent';
 import { DomainEvent } from '@shared/domain/events/domainEvent';
-import { User } from '@services/users/domain/user';
 
 type UserCreatedEventPrimitives = BaseEventPrimitivesProps & {
   userId: string;
@@ -16,7 +16,10 @@ export class UserCreatedEvent extends DomainEvent {
   private readonly user: User;
 
   private constructor(user: User) {
-    super({ aggregateId: user.userId.toString(), eventType: UserCreatedEvent.EVENT_NAME });
+    super({
+      aggregateId: user.userId.toString(),
+      eventType: UserCreatedEvent.EVENT_NAME,
+    });
 
     this.user = user;
   }
