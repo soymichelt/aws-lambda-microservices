@@ -3,29 +3,26 @@ module.exports = {
   root: true,
   env: {
     node: true,
-    jest: true
+    jest: true,
   },
   // Read more on: https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser#configuration
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    project: './tsconfig.json',
     ecmaVersion: 'latest',
     tsconfigRootDir: __dirname,
-    sourceType: 'module'
+    sourceType: 'module',
   },
-  plugins: [
-    '@typescript-eslint',
-    'folders',
-    'import',
-    'simple-import-sort',
-    'unused-imports'
-  ],
+  plugins: ['@typescript-eslint', 'folders', 'import', 'simple-import-sort', 'unused-imports'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'plugin:security/recommended'
+    'plugin:security/recommended',
   ],
   rules: {
+    semi: 'off',
+    '@typescript-eslint/semi': ['error', 'always'],
     'array-element-newline': 'off',
     complexity: ['error', 10],
     eqeqeq: 'error',
@@ -36,12 +33,17 @@ module.exports = {
         code: 120,
         ignoreComments: true,
         ignoreTemplateLiterals: true,
-        ignorePattern: '^import .*'
-      }
+        ignorePattern: '^import .*',
+      },
     ],
-    'max-lines-per-function': ['warn', { max: 50,
-skipBlankLines: true,
-skipComments: true }],
+    'max-lines-per-function': [
+      'warn',
+      {
+        max: 50,
+        skipBlankLines: true,
+        skipComments: true,
+      },
+    ],
     'max-params': ['error', 6],
     'no-console': 'warn',
     'no-prototype-builtins': 'off',
@@ -64,10 +66,9 @@ skipComments: true }],
       'error',
       {
         argsIgnorePattern: '^_', // use pipe (|) to add more
-        ignoreRestSiblings: true
-      }
+        ignoreRestSiblings: true,
+      },
     ],
-    // 'prettier/prettier': 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'import/first': 'error',
@@ -80,16 +81,16 @@ skipComments: true }],
         vars: 'all',
         varsIgnorePattern: '^_',
         args: 'after-used',
-        argsIgnorePattern: '^_'
-      }
-    ],
-    "@typescript-eslint/quotes": [
-      "error",
-      "single",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true,
+        argsIgnorePattern: '^_',
       },
     ],
-  }
-}
+    '@typescript-eslint/quotes': [
+      'error',
+      'single',
+      {
+        avoidEscape: true,
+        allowTemplateLiterals: true,
+      },
+    ],
+  },
+};
