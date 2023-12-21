@@ -28,6 +28,7 @@
     ]
   },
   "include": [
+    ".eslintrc.js",
     "src/**/*",
     "tests/**/*.ts"
   ]

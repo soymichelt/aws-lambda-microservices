@@ -4,6 +4,7 @@
   "description": "Microservice template to deploy generic infrastructure",
   "scripts": {
     "lint": "eslint --color ./src/**/*.ts && tsc --noEmit",
+    "lint:fix": "eslint --color ./src/**/*.ts --fix",
     "test": "jest --maxWorkers=50%",
     "build": "serverless package --verbose --stage %STAGE% --package sls-output",
     "deploy": "serverless deploy --verbose --stage %STAGE% --package sls-output && serverless info --verbose --stage %STAGE%",
