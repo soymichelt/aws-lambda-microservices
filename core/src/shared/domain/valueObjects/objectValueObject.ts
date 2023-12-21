@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export class ObjectValueObject {
   readonly value: Record<string, any>;
 
@@ -5,6 +6,7 @@ export class ObjectValueObject {
     this.value = value;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static build(value: Record<string, any>): ObjectValueObject {
     return new ObjectValueObject(value);
   }

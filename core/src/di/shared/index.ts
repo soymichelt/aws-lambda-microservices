@@ -1,11 +1,11 @@
 import 'reflect-metadata';
+
 import { EventBus } from '@shared/domain/events/eventBus';
 import { HttpRequestParserController } from '@shared/infrastructure/controllers/httpRequestParserController';
 import { ManagerRequestParsersController } from '@shared/infrastructure/controllers/managerRequestParsersController';
 import { RequestParserController } from '@shared/infrastructure/controllers/requestParserController';
 import { SnsRequestParserController } from '@shared/infrastructure/controllers/snsRequestParserController';
 import { EventBusSns } from '@shared/infrastructure/events/eventBusSns';
-
 import { container } from 'tsyringe';
 
 container

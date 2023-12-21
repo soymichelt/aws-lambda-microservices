@@ -1,4 +1,4 @@
-import { EnumValueIsInvalidException } from "../exceptions/enumValueIsInvalidException";
+import { EnumValueIsInvalidException } from '../exceptions/enumValueIsInvalidException';
 
 export abstract class EnumValueObject<T> {
   readonly value: T;

@@ -1,6 +1,6 @@
-import { createLogger, Logger as LoggerOfWinston, format, transports } from 'winston';
-import { Logger } from '@shared/domain/loggers/logger';
 import { ArgRequiredException } from '@shared/domain/exceptions/argRequiredException';
+import { Logger } from '@shared/domain/loggers/logger';
+import { createLogger, format, Logger as LoggerOfWinston, transports } from 'winston';
 
 type WinstonLoggerMetadataProps = {
   app: string;
@@ -46,7 +46,11 @@ export class WinstonLogger implements Logger {
 
   private validateLogger(metadata: WinstonLoggerMetadataProps): void {
     if (!metadata.app || !metadata.service || !metadata.package || !metadata.stage || !metadata.version) {
-      throw new ArgRequiredException(Object.entries(metadata).filter(([_, value]) => !value).map(([key]) => key));
+      throw new ArgRequiredException(
+        Object.entries(metadata)
+          .filter(([_, value]) => !value)
+          .map(([key]) => key),
+      );
     }
   }
 

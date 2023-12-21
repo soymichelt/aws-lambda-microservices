@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestParserController } from '@shared/infrastructure/controllers/requestParserController';
 import { Context } from 'aws-lambda';
-import { injectAll, injectable } from 'tsyringe';
+import { injectable, injectAll } from 'tsyringe';
 
 @injectable()
 export class ManagerRequestParsersController {
@@ -11,9 +12,9 @@ export class ManagerRequestParsersController {
   }
 
   public getParser(event: any, context: Context): RequestParserController {
-    const parser = this.parsers.find(parser => parser.match(event, context));
+    const parser = this.parsers.find((parser) => parser.match(event, context));
     if (!parser) {
-      throw new Error('RequestParserController has not been found')
+      throw new Error('RequestParserController has not been found');
     }
 
     return parser;

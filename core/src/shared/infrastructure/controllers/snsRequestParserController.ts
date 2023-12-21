@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestParserController } from '@shared/infrastructure/controllers/requestParserController';
 import { Context, SNSEvent } from 'aws-lambda';
 import { injectable } from 'tsyringe';
@@ -21,6 +22,6 @@ export class SnsRequestParserController implements RequestParserController {
       return JSON.parse(Records[0].Sns.Message || '{}');
     }
 
-    return Records.map(record => JSON.parse(record.Sns.Message));
+    return Records.map((record) => JSON.parse(record.Sns.Message));
   }
 }
